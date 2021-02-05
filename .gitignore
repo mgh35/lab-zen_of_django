@@ -1,0 +1,7 @@
+# Python artefacts
+.python-version
+.venv*
+*.pyc
+
+# Django Artefacts
+db.sqlite3
