@@ -1,6 +1,10 @@
+# OS artefacts
+.DS_Store
+
 # Python artefacts
 .python-version
 .venv*
+__pycache__/
 *.pyc
 
 # Django Artefacts
