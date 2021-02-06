@@ -43,3 +43,10 @@ want to name it. (Admittedly, the extra level of indirection from the lab itself
 helping.)
 
 Levels of zen are falling quickly.
+
+### 2021-02-06
+
+After a losing battle, it turns out that VSCode
+[format on save does not to support templates](https://forum.djangoproject.com/t/automatic-formatting-of-django-templates/341).
+Really, prefer to keep formatting outside of the editor anyways. Turn off format on save
+and add precommit.
