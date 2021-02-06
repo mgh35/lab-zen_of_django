@@ -34,19 +34,13 @@ error: No module named 'site.settings'; 'site' is not a package)
 
 Any other name seems to be fine. I guess some magic keyword somewhere. Whatever.
 
-The apps idea is still not clear to me. The [docs](https://docs.djangoproject.com/en/3.1/intro/tutorial01/#creating-the-polls-app)
-leave me similarly confused. And other examples I've looked at least me to the issues
-brought up in [this](https://medium.com/@DoorDash/tips-for-building-high-quality-django-apps-at-scale-a5a25917b2b5)
-about apps becoming couples. I'm going to follow that advice and keep to single-app
-proejcts. So the project folder I'll stick with `project` and the app named what I
-want to name it. (Admittedly, the extra level of indirection from the lab itself isn't
-helping.)
+The apps idea is still not clear to me. The [docs](https://docs.djangoproject.com/en/3.1/intro/tutorial01/#creating-the-polls-app) leave me similarly confused. And other examples I've looked at least me to the issues brought up in [this](https://medium.com/@DoorDash/tips-for-building-high-quality-django-apps-at-scale-a5a25917b2b5) about apps becoming coupled. I'm going to follow that advice and keep to single-app projects. So the project folder I'll stick with `project` and the app named what I want to name it. (Admittedly, the extra level of indirection from the lab itself isn't helping.)
 
 Levels of zen are falling quickly.
 
 ### 2021-02-06
 
-After a losing battle, it turns out that VSCode
-[format on save does not to support templates](https://forum.djangoproject.com/t/automatic-formatting-of-django-templates/341).
-Really, prefer to keep formatting outside of the editor anyways. Turn off format on save
-and add precommit.
+After a losing battle, it turns out that VSCode [format on save does not to support templates](https://forum.djangoproject.com/t/automatic-formatting-of-django-templates/341). Really, prefer to keep formatting outside of the editor anyways. Turn off format on save and add precommit.
+
+In installing pre-commit, I always forget that I need that in the dev environment, not
+the project environment.
