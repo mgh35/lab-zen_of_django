@@ -5,7 +5,10 @@
   <body>
     <h1>Blog</h1>
     {% for post in posts %}
-    <p>{{ post.text | truncatechars:10 }}</p>
+    <div class="post">
+      <div class="post-title">{{ post.title }}</div>
+      <div class="post-text">{{ post.text | truncatechars:50 }}</div>
+    </div>
     {% endfor %}
   </body>
 </html>
