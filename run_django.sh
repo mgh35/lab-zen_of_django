@@ -2,7 +2,7 @@ set -e
 
 cd "$(dirname "$0")"
 
-VENV=.venv-django
+VENV=.venv
 
 pyenv local 3.9.1
 if [ ! -d $VENV ]
@@ -13,5 +13,6 @@ source $VENV/bin/activate
 
 pip install -r requirements.txt
 
-python backend/manage.py migrate
-python backend/manage.py runserver
+cd blog
+python manage.py migrate
+python manage.py runserver
