@@ -21,12 +21,9 @@ For next time to start into the actual lab, then.
 
 ### 2021-02-05
 
-I'd had in mind that this would need a frontend. (That Django would just supply the
-backend.) Part of the zen of Django seems to be that the Admin pages give a basic UI
-out the box (if users are willing to tolerate a basic UX). So running with that.
+I'd had in mind that this would need a frontend. (That Django would just supply the backend.) Part of the zen of Django seems to be that the Admin pages give a basic UI out the box (if users are willing to tolerate a basic UX). So running with that.
 
-On renaming the site folder to `site` (and appropriately updating the settings path
-in `manage.py`) started hitting:
+On renaming the site folder to `site` (and appropriately updating the settings path in `manage.py`) started hitting:
 
 ```sh
 error: No module named 'site.settings'; 'site' is not a package)
@@ -42,5 +39,4 @@ Levels of zen are falling quickly.
 
 After a losing battle, it turns out that VSCode [format on save does not to support templates](https://forum.djangoproject.com/t/automatic-formatting-of-django-templates/341). Really, prefer to keep formatting outside of the editor anyways. Turn off format on save and add precommit.
 
-In installing pre-commit, I always forget that I need that in the dev environment, not
-the project environment.
+In installing pre-commit, I always forget that I need that in the dev environment, not the project environment.
