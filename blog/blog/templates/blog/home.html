@@ -1,11 +1,5 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Latest Posts</h1>
-  {% for post in posts %}
-  <div class="post">
-    <div class="post-title">{{ post.title }}</div>
-    <div class="post-text">{{ post.text | truncatechars:50 }}</div>
-  </div>
-  {% endfor %}
+    <h1>Welcome, {{ user.username }}!</h1>
 {% endblock content %}

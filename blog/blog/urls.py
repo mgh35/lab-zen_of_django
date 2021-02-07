@@ -8,6 +8,6 @@ from blog import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
-    path("", views.home),
-    path("profile/", views.profile, name="profile"),
+    path("", views.public_home, name="public-home"),
+    path("home/", views.home, name="home"),
 ]
