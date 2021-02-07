@@ -6,21 +6,18 @@ body {
 .navbar {
     background-color: gray;
     width: 100%;
-    height: 80px;
+}
+
+.navbar .row {
+    width: 100%;
+    vertical-align: middle;
 }
 
 .banner {
-    float: left;
     font-size: 40pt;
     font-weight: bolder;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
-    margin-top: 10px;
-    margin-left: 20px;
-}
-
-.links {
-    float: right;
 }
 
 .link {
