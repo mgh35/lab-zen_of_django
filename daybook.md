@@ -40,3 +40,9 @@ Levels of zen are falling quickly.
 After a losing battle, it turns out that VSCode [format on save does not to support templates](https://forum.djangoproject.com/t/automatic-formatting-of-django-templates/341). Really, prefer to keep formatting outside of the editor anyways. Turn off format on save and add precommit.
 
 In installing pre-commit, I always forget that I need that in the dev environment, not the project environment.
+
+### 2021-02--07
+
+Starting to doubt the value of this lab - The only findings so far are that Django does what it does and doesn't do what it doesn't. It also depends which bit exactly one is looking at. I had in mind mainly with respect to RESTful endpoints, but my choice to use the MVT model to avoid creating a separate frontend has taken me down a separate sort of path with different considerations. I intend to quickly build the specced features and leave things at that. (Once I've finished bikeshedding and getting Bootstrap working.)
+
+Signup is providing a challenge to the approach of keeping a single app. Particularly, the `accounts/` tree is coming out of the default auth app. But that doesn't have any signup flow. The consensus in tutorials seems to be [along the lines of this](https://levelup.gitconnected.com/how-to-implement-login-logout-and-registration-with-djangos-user-model-59442164db73). Namely, creating an `accounts` app to handle `accounts/` and have that manage the process. But there are still all the previous issues about what exactly a different app might be. Overall, opting to stick with the single-app advice. This does seem to mean moving everything into that app, though.
