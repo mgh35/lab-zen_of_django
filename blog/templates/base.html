@@ -1,11 +1,15 @@
 <html>
   <head>
     <title>Blog</title>
-    <link rel="stylesheet" href="static/site.css">
+    <link rel="stylesheet" href="/static/site.css">
   </head>
   <body>
     <div class="navbar">
       <span class="banner">Blog</span>
+      <span class="links">
+        <a class="link" href="/accounts/login/">Login</a>
+        <a class="link" href="/accounts/logout/">Logout</a>
+      </span>
     </div>
     <div class="content">
       {% block content %}{% endblock %}
