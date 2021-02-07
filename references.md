@@ -6,6 +6,8 @@ https://docs.djangoproject.com/en/3.1/intro/tutorial01/
 
 https://code.visualstudio.com/docs/python/tutorial-django
 
+https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Authentication
+
 ### Forms
 
 https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html
