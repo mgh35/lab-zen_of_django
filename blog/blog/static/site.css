@@ -18,11 +18,16 @@ body {
     margin-left: 20px;
 }
 
+.content {
+    margin: auto;
+    width: 800px;
+}
+
 .post {
     background-color: #EEEEEE;
     padding: 10px;
-    margin: 50px;
-    width: 800px;
+    margin-top: 50px;
+    width: 100%;
     border-radius: 10px;
 }
 
