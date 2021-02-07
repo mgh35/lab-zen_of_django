@@ -20,10 +20,9 @@ body {
     color: white;
 }
 
-.link {
+.navlink {
     text-decoration: none;
     color: white;
-    font-weight: bold;
 }
 
 .content {
