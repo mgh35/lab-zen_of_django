@@ -1,6 +1,13 @@
+from django.contrib import admin
+from django.urls import include
 from django.urls import path
 
 from blog import views
 
 
-urlpatterns = [path("", views.home), path("profile/", views.profile, name="profile")]
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("", views.home),
+    path("profile/", views.profile, name="profile"),
+]
