@@ -22,18 +22,18 @@
                   <i class="bi-person-circle"></i>
                 </div>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="/profile/">
+                  <a class="dropdown-item" href="{% url 'profile' %}">
                     <i class="bi-house"></i>
                     Profile
                   </a>
-                  <a class="dropdown-item" href="/accounts/logout/">
+                  <a class="dropdown-item" href="{% url 'logout' %}">
                     <i class="bi-backspace"></i>
                     Logout
                   </a>
                 </div>
               </div>
             {% else %}
-              <a class="navlink" href="/accounts/login/">Login</a>
+              <a class="navlink" href="{% url 'login' %}">Login</a>
             {% endif %}
           </div>
         </div>
