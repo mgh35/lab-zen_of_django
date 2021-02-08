@@ -5,11 +5,30 @@
     <form action="{% url 'posts-compose' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
-            <input class="form-control" id="id_title" name="title" type="text" placeholder="Title">
+            <input class="form-control{% if form.title.errors %} is-invalid{% endif %}" id="id_title" name="title" type="text" placeholder="Title">
+            {% if form.title.errors %}
+                <div class="invalid-feedback">
+                    <ol>
+                    {% for error in form.title.errors %}
+                        <li><strong>{{ error|escape }}</strong></li>
+                    {% endfor %}
+                    </ol>
+                </div>
+            {% endif %}
         </div>
         <div class="form-group">
-            <textarea class="form-control" id="id_text" name="text" placeholder="What's on your mind?"></textarea>
+            <textarea class="form-control{% if form.text.errors %} is-invalid{% endif %}" id="id_text" name="text" placeholder="What's on your mind?"></textarea>
+            {% if form.text.errors %}
+                <div class="invalid-feedback">
+                    <ol>
+                    {% for error in form.text.errors %}
+                        <li><strong>{{ error|escape }}</strong></li>
+                    {% endfor %}
+                    </ol>
+                </div>
+            {% endif %}
         </div>
         <input class="btn btn-primary" type="submit" value="Submit">
+
     </form>
 {% endblock content %}
