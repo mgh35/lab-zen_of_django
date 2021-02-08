@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 
 from blog.forms import AnyPasswordUserCreationForm
+from blog.forms import PostForm
 from blog.models import Post
 
 
@@ -34,3 +35,22 @@ def public_home(request):
 @login_required
 def home(request):
     return render(request, "blog/home.html", {})
+
+
+def posts_detail(request, post_id):
+    return render(
+        request, "blog/posts_list.html", {"posts": [Post.objects.get(id=post_id)]}
+    )
+
+
+@login_required
+def posts_compose(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            breakpoint()
+            return redirect("posts-detail", post_id=form.instance.id)
+    else:
+        form = PostForm()
+    return render(request, "blog/posts_create.html", {"form": form})
