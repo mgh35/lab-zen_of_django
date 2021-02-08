@@ -53,4 +53,4 @@ def posts_compose(request):
             return redirect("posts-detail", post_id=form.instance.id)
     else:
         form = PostForm()
-    return render(request, "blog/posts_create.html", {"form": form})
+    return render(request, "blog/posts_compose.html", {"form": form})
