@@ -18,3 +18,5 @@ https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sig
 ### Best Practices
 
 https://medium.com/@DoorDash/tips-for-building-high-quality-django-apps-at-scale-a5a25917b2b5
+
+https://youtu.be/tssYpA6WiQM
