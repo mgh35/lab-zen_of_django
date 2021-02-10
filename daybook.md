@@ -41,10 +41,15 @@ After a losing battle, it turns out that VSCode [format on save does not to supp
 
 In installing pre-commit, I always forget that I need that in the dev environment, not the project environment.
 
-### 2021-02--07
+### 2021-02-07
 
 Starting to doubt the value of this lab - The only findings so far are that Django does what it does and doesn't do what it doesn't. It also depends which bit exactly one is looking at. I had in mind mainly with respect to RESTful endpoints, but my choice to use the MVT model to avoid creating a separate frontend has taken me down a separate sort of path with different considerations. I intend to quickly build the specced features and leave things at that. (Once I've finished bikeshedding and getting Bootstrap working.)
 
 Signup is providing a challenge to the approach of keeping a single app. Particularly, the `accounts/` tree is coming out of the default auth app. But that doesn't have any signup flow. The consensus in tutorials seems to be [along the lines of this](https://levelup.gitconnected.com/how-to-implement-login-logout-and-registration-with-djangos-user-model-59442164db73). Namely, creating an `accounts` app to handle `accounts/` and have that manage the process. But there are still all the previous issues about what exactly a different app might be. Overall, opting to stick with the single-app advice. This does seem to mean moving everything into that app, though.
 
 Discovered that moving the templates to the app, the default templates are selected unless the app appears higher in the INSTALLED_APPS list. Which then made me look at the [other auth view](https://docs.djangoproject.com/en/3.1/topics/auth/default/#module-django.contrib.auth.views). Out of the box, they are the Django admin views. So kind of nice to have, but not really suitable for anything apart from an internal app. (But a nice out-of-the box feature there.) Remarkable how easy it was to follow the tutorial and not realize it was exposing this raw Django admin password reset page (presumably safe, but not something that would be wanted on a production app). I'll update to follow the approach [here](https://stackoverflow.com/questions/35153108/why-is-logged-out-html-not-overriding-in-django-registration) of explicitly taking just the links I want.
+
+
+### 2021-02-09
+
+Interest case of config and security. Using the LoginRequiredMixin, if it goes first in the class list it works as expected, but if it goes second it silently fails and unauthed users can access the page.
