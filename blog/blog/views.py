@@ -1,17 +1,21 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import QuerySet
 from django.http.response import HttpResponse
 from django.urls import reverse
 from django.urls import reverse_lazy
-from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
+from rest_framework.renderers import JSONRenderer
 from rest_framework.viewsets import ModelViewSet
+from typing import List
 
 from blog.forms import AnyPasswordUserCreationForm
 from blog.forms import PostForm
 from blog.models import Post
+from blog.queries import all_permissioned_posts
+from blog.renderers import ModelTemplateHTMLRenderer
 from blog.serializers import PostSerializer
 
 
@@ -30,36 +34,34 @@ class SignupView(FormView):
 
 
 class PublicHomeList(ListView):
-    queryset = Post.objects.all()
     ordering = ["-create_time"]
     template_name = "blog/public_home.html"
     context_object_name = "posts"
 
+    def get_queryset(self) -> QuerySet:
+        return all_permissioned_posts(self.request.user)
+
 
 class HomeList(LoginRequiredMixin, ListView):
-    queryset = Post.objects.all()
     ordering = ["-create_time"]
     template_name = "blog/home.html"
     context_object_name = "posts"
+
+    def get_queryset(self) -> QuerySet:
+        return all_permissioned_posts(self.request.user)
 
 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
     ordering = ["-create_time"]
     serializer_class = PostSerializer
+    renderer_classes = [ModelTemplateHTMLRenderer, JSONRenderer]
 
-
-class PostsList(ListView):
-    queryset = Post.objects.all()
-    ordering = ["-create_time"]
-    template_name = "blog/posts_list.html"
-    context_object_name = "posts"
-
-
-class PostsDetail(DetailView):
-    queryset = Post.objects.all()
-    template_name = "blog/posts_detail.html"
-    context_object_name = "post"
+    def get_template_names(self) -> List[str]:
+        if self.detail:
+            return ["blog/posts_detail.html"]
+        else:
+            return ["blog/posts_list.html"]
 
 
 class PostsCompose(LoginRequiredMixin, FormView):
