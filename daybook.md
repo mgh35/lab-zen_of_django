@@ -53,3 +53,8 @@ Discovered that moving the templates to the app, the default templates are selec
 ### 2021-02-09
 
 Interest case of config and security. Using the LoginRequiredMixin, if it goes first in the class list it works as expected, but if it goes second it silently fails and unauthed users can access the page.
+
+
+### 2021-02-11
+
+Adding DRF. Mainly to see where it fits into this picture. But also, now that the /posts/ APIs are fleshed out, it's clear that they are all very similar and an abstraction like DRF would help to keep them consistent. For example, adding optional permissioned posts is going to require keeping all the views in sync. It will be interesting to see, though, if having it in DRF will allow for a seamless way to support a JSON API on the same endpoints.
