@@ -2,11 +2,14 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import QuerySet
+from django.http import HttpResponseRedirect
 from django.http.response import HttpResponse
+from django.shortcuts import render
 from django.urls import reverse
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
+from rest_framework.decorators import action
 from rest_framework.renderers import JSONRenderer
 from rest_framework.viewsets import ModelViewSet
 from typing import List
@@ -63,16 +66,17 @@ class PostViewSet(ModelViewSet):
         else:
             return ["blog/posts_list.html"]
 
+    @action(detail=False, methods=["GET", "POST"])
+    def compose(self, request):
+        if request.method == "POST":
+            form = PostForm(request.POST)
+            if form.is_valid():
+                form.save()
+                self.post_pk = form.instance.id
+                return HttpResponseRedirect(
+                    reverse("posts-detail", kwargs={"pk": self.post_pk})
+                )
+        else:
+            form = PostForm()
 
-class PostsCompose(LoginRequiredMixin, FormView):
-    form_class = PostForm
-    template_name = "blog/posts_compose.html"
-    success_url = reverse_lazy("posts-detail")
-
-    def form_valid(self, form) -> HttpResponse:
-        form.save()
-        self.post_pk = form.instance.id
-        return super().form_valid(form)
-
-    def get_success_url(self) -> str:
-        return reverse("posts-detail", kwargs={"pk": self.post_pk})
+        return render(request, "blog/posts_compose.html", {"form": form})

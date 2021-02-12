@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>Compose</h1>
-    <form action="{% url 'posts-compose' %}" method="post">
+    <form action="{% url 'post-compose' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
             <input class="form-control{% if form.title.errors %} is-invalid{% endif %}" id="id_title" name="title" type="text" placeholder="Title">
