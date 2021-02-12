@@ -10,6 +10,8 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.renderers import JSONRenderer
 from rest_framework.viewsets import ModelViewSet
 from typing import List
@@ -59,6 +61,7 @@ class PostViewSet(ModelViewSet):
     ordering = ["-create_time"]
     serializer_class = PostSerializer
     renderer_classes = [ModelTemplateHTMLRenderer, JSONRenderer]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_template_names(self) -> List[str]:
         if self.detail:
@@ -66,7 +69,7 @@ class PostViewSet(ModelViewSet):
         else:
             return ["blog/posts_list.html"]
 
-    @action(detail=False, methods=["GET", "POST"])
+    @action(detail=False, methods=["GET", "POST"], permission_classes=[IsAuthenticated])
     def compose(self, request):
         if request.method == "POST":
             form = PostForm(request.POST)
@@ -74,7 +77,7 @@ class PostViewSet(ModelViewSet):
                 form.save()
                 self.post_pk = form.instance.id
                 return HttpResponseRedirect(
-                    reverse("posts-detail", kwargs={"pk": self.post_pk})
+                    reverse("post-detail", kwargs={"pk": self.post_pk})
                 )
         else:
             form = PostForm()
