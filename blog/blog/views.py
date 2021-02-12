@@ -7,10 +7,12 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
+from rest_framework.viewsets import ModelViewSet
 
 from blog.forms import AnyPasswordUserCreationForm
 from blog.forms import PostForm
 from blog.models import Post
+from blog.serializers import PostSerializer
 
 
 class SignupView(FormView):
@@ -39,6 +41,12 @@ class HomeList(LoginRequiredMixin, ListView):
     ordering = ["-create_time"]
     template_name = "blog/home.html"
     context_object_name = "posts"
+
+
+class PostViewSet(ModelViewSet):
+    queryset = Post.objects.all()
+    ordering = ["-create_time"]
+    serializer_class = PostSerializer
 
 
 class PostsList(ListView):
