@@ -58,3 +58,5 @@ Interest case of config and security. Using the LoginRequiredMixin, if it goes f
 ### 2021-02-11
 
 Adding DRF. Mainly to see where it fits into this picture. But also, now that the /posts/ APIs are fleshed out, it's clear that they are all very similar and an abstraction like DRF would help to keep them consistent. For example, adding optional permissioned posts is going to require keeping all the views in sync. It will be interesting to see, though, if having it in DRF will allow for a seamless way to support a JSON API on the same endpoints.
+
+It's notable that moving to DRF makes some of the common HTML interaction patterns less automated. For example, `login_required` is now gone. The template rendering also seems to require a bit of extra work (versus what was very simple in Django). But it does unify the different endpoints relating to the same model and does give a fairly seamless support for JSON or HTML.
