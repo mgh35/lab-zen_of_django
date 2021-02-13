@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if not user.is_authenticated %}
+        <p>Oops, you have to be logged in to see that.</p>
+        <a href="{% url 'login' %}?next={{ request.get_full_path }}">Log in</a>
+    {% else %}
+        <p>Naughty, naughty! You can't see this!</p>
+    {% endif %}
+{% endblock content %}
