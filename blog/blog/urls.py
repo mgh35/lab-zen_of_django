@@ -17,6 +17,6 @@ urlpatterns = [
 ]
 
 router = DefaultRouter()
-router.register("posts", views.PostViewSet)
+router.register("posts", views.PostViewSet, basename="post")
 
 urlpatterns.append(path("", include(router.urls)))

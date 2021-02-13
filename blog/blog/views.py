@@ -56,11 +56,13 @@ class HomeList(LoginRequiredMixin, ListView):
 
 
 class PostViewSet(ModelViewSet):
-    queryset = all_permissioned_posts()
     ordering = ["-create_time"]
     serializer_class = PostSerializer
     renderer_classes = [ModelTemplateHTMLRenderer, JSONRenderer]
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self):
+        return all_permissioned_posts(self.request.user)
 
     def get_template_names(self) -> List[str]:
         if self.detail:
