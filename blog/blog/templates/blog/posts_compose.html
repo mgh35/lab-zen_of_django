@@ -5,7 +5,14 @@
     <form action="{% url 'post-compose' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
-            <input class="form-control{% if form.title.errors %} is-invalid{% endif %}" id="id_title" name="title" type="text" placeholder="Title">
+            <input
+                class="form-control{% if form.title.errors %} is-invalid{% endif %}"
+                id="id_title"
+                name="title"
+                type="text"
+                placeholder="Title"
+                value="{{ form.title.value }}"
+            >
             {% if form.title.errors %}
                 <div class="invalid-feedback">
                     <ol>
@@ -17,7 +24,12 @@
             {% endif %}
         </div>
         <div class="form-group">
-            <textarea class="form-control{% if form.text.errors %} is-invalid{% endif %}" id="id_text" name="text" placeholder="What's on your mind?"></textarea>
+            <textarea
+                class="form-control{% if form.text.errors %} is-invalid{% endif %}"
+                id="id_text"
+                name="text"
+                placeholder="What's on your mind?"
+            >{{ form.text.value }}</textarea>
             {% if form.text.errors %}
                 <div class="invalid-feedback">
                     <ol>
@@ -29,7 +41,13 @@
             {% endif %}
         </div>
         <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="id_is_public" name="is_public" {% if form.is_public.value %}checked{% endif %}>
+            <input
+                type="checkbox"
+                class="form-check-input"
+                id="id_is_public"
+                name="is_public"
+                {% if form.is_public.value %}checked{% endif %}
+            >
             <label class="form-check-label" for="id_is_public">Public Post</label>
         </div>
         <input class="btn btn-primary" type="submit" value="Post">
