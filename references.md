@@ -6,6 +6,20 @@ https://docs.djangoproject.com/en/3.1/intro/tutorial01/
 
 https://code.visualstudio.com/docs/python/tutorial-django
 
+### Design
+
+https://docs.djangoproject.com/en/3.1/misc/design-philosophies/
+
+https://rubyonrails.org/doctrine/
+
+### Active Record Pattern
+
+https://www.martinfowler.com/eaaCatalog/activeRecord.html
+
+https://guides.rubyonrails.org/active_record_basics.html
+
+http://calpaterson.com/activerecord.html
+
 ### Auth
 
 https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Authentication
