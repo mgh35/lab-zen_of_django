@@ -75,7 +75,9 @@ class PostViewSet(ModelViewSet):
         if request.method == "POST":
             form = PostForm(request.POST)
             if form.is_valid():
-                form.save()
+                post = form.save(commit=False)
+                post.author = request.user
+                post.save()
                 self.post_pk = form.instance.id
                 return HttpResponseRedirect(
                     reverse("post-detail", kwargs={"pk": self.post_pk})
