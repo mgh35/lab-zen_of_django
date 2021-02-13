@@ -18,7 +18,6 @@ from typing import List
 
 from blog.forms import AnyPasswordUserCreationForm
 from blog.forms import PostForm
-from blog.models import Post
 from blog.queries import all_permissioned_posts
 from blog.renderers import ModelTemplateHTMLRenderer
 from blog.serializers import PostSerializer
@@ -57,7 +56,7 @@ class HomeList(LoginRequiredMixin, ListView):
 
 
 class PostViewSet(ModelViewSet):
-    queryset = Post.objects.all()
+    queryset = all_permissioned_posts()
     ordering = ["-create_time"]
     serializer_class = PostSerializer
     renderer_classes = [ModelTemplateHTMLRenderer, JSONRenderer]
