@@ -40,7 +40,7 @@ class SignupView(FormView):
 class PublicHomeList(ListView):
     ordering = ["-create_time"]
     template_name = "blog/public_home.html"
-    context_object_name = "posts"
+    context_object_name = "data"
 
     def get_queryset(self) -> QuerySet:
         return all_permissioned_posts(self.request.user)
@@ -49,7 +49,7 @@ class PublicHomeList(ListView):
 class HomeList(LoginRequiredMixin, ListView):
     ordering = ["-create_time"]
     template_name = "blog/home.html"
-    context_object_name = "posts"
+    context_object_name = "data"
 
     def get_queryset(self) -> QuerySet:
         return all_permissioned_posts(self.request.user)

@@ -1,0 +1,11 @@
+{% for post in data %}
+    <a class="post-summary-link" href="{% url 'post-detail' post.id %}">
+        <div class="post-summary">
+            <div class="post-summary-title">{{ post.title }}</div>
+            <div class="post-summary-text">
+                {{ post.text | truncatechars:50 }}
+                <i class="bi-arrow-right-circle"></i>
+            </div>
+        </div>
+    </a>
+{% endfor %}

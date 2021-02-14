@@ -1,12 +1,5 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% for post in data %}
-        <a href="{% url 'post-detail' post.id %}">
-            <div class="post">
-                <div class="post-title">{{ post.title }}</div>
-                <div class="post-text">{{ post.text | truncatechars:50 }}</div>
-            </div>
-        </a>
-    {% endfor %}
+    {% include "includes/posts_list.html" %}
 {% endblock content %}
