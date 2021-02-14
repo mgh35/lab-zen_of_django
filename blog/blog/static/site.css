@@ -28,13 +28,14 @@ body {
 .content {
     margin: auto;
     width: 800px;
+    padding-top: 50px
 }
 
 .post-summary {
     background-color: #EEEEEE;
     color: #333333;
     padding: 10px;
-    margin-top: 50px;
+    margin-bottom: 50px;
     width: 100%;
     border-radius: 10px;
 }
@@ -45,4 +46,15 @@ body {
 
 .post-summary-link {
     text-decoration: none;
+}
+
+.post {
+    color: #333333;
+    width: 100%;
+}
+
+.post-title {
+    font-weight: bold;
+    font-size: 150%;
+    margin-bottom: 20px
 }
