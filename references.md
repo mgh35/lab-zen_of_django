@@ -6,6 +6,8 @@ https://docs.djangoproject.com/en/3.1/intro/tutorial01/
 
 https://code.visualstudio.com/docs/python/tutorial-django
 
+http://ccbv.co.uk/
+
 ### Design
 
 https://docs.djangoproject.com/en/3.1/misc/design-philosophies/
