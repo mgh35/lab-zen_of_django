@@ -2,6 +2,6 @@
 
 {% block content %}
     <h1>Welcome, {{ user.username }}!</h1>
-
-    <a href="{% url 'post-compose' %}">Start writing!</a>
+    <p>Got something to say? <a href="{% url 'post-compose' %}">Start writing!</a></p>
+    <p>Take a look at <a href="{% url 'post-list' %}">your latest content</a>.</p>
 {% endblock content %}
