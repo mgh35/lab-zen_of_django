@@ -85,3 +85,5 @@ get_resolver().reverse_dict.keys()
 ```
 
 Looks like because they are on the same endpoint they create the same route and just implement the different HTTP methods.
+
+Another config pitfall. My model happily included `permission_class = [...]`. Of course, typo (should be `permission_classes`) so it just silently did nothing. Terrifying if security relies on not making typos (which aren't caught by any tooling).
