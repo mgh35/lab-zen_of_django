@@ -74,3 +74,14 @@ The home pages are an interesting case. They really don't follow the Model* hier
 This is back to the point of Django being very useful for what it's good for. But, once you leave that sweet spot, the abstractions very quickly just get in the way. Falling back to the lightest View and building it manually seems to be the right thing to do there. (And things like the templating can still be kind of handy.)
 
 Comments highlight a bit of a branching point. Really, they should happen in place (with JS and using an API endpoint). It looks like it might be possible to hack about a sort of implementation using forms and templates. But I haven't found anywhere with an attractive UX or a scalable technique (they are all basically the same sort of thing as the Admin interface). Having gone down the DRF route but without the frontend, crashing right through the middle of the fork. For the purpose of this lab, just going to do a simple post to an API and then have that reload the whole page.
+
+Hitting a confusing issue with the URL resolution. I have a `class CommentViewSet(CreateModelMixin, GenericViewSet)` but it's creating creating a "comment-list" route:
+
+```python
+# python blog/manage.py shell
+from django.urls import get_resolver
+get_resolver().reverse_dict.keys()
+> [..., "comment-list", ...]
+```
+
+Looks like because they are on the same endpoint they create the same route and just implement the different HTTP methods.
