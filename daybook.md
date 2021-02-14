@@ -60,3 +60,9 @@ Interest case of config and security. Using the LoginRequiredMixin, if it goes f
 Adding DRF. Mainly to see where it fits into this picture. But also, now that the /posts/ APIs are fleshed out, it's clear that they are all very similar and an abstraction like DRF would help to keep them consistent. For example, adding optional permissioned posts is going to require keeping all the views in sync. It will be interesting to see, though, if having it in DRF will allow for a seamless way to support a JSON API on the same endpoints.
 
 It's notable that moving to DRF makes some of the common HTML interaction patterns less automated. For example, `login_required` is now gone. The template rendering also seems to require a bit of extra work (versus what was very simple in Django). But it does unify the different endpoints relating to the same model and does give a fairly seamless support for JSON or HTML.
+
+### 2021-02-14
+
+Another case where straying even slightly off the green path leaves you having to dig through the Django code to figure out how exactly it's doing things: Ordering is super easy - just specify the `ordering` field. But it does nothing here. Of course, the issue was that I had overridden the `get_queryset` method (so that I could apply the permission filtering). Apart from digging through the Django abstractions, not sure what the options are. To fix this case, I can 1) add ordering to my `get_queryset`, 2) have my `get_queryset` set `self.queryset` and call the base `get_queryset`, 3) because my `get_queryset` logic is just filtering, I can implement as a `filterset` instead. The latter feels like the closest way to the Django model.
+
+I feel like that all makes sense. But for such a simple thing it requires a fairly deep understanding of the Django abstraction. Any talk of "working out the box" is wildly overstated.
