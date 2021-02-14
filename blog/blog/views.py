@@ -15,9 +15,11 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.renderers import JSONRenderer
 from rest_framework.viewsets import ModelViewSet
 from typing import List
+from blog.filters import PostFilter
 
 from blog.forms import AnyPasswordUserCreationForm
 from blog.forms import PostForm
+from blog.models import Post
 from blog.queries import all_permissioned_posts
 from blog.renderers import ModelTemplateHTMLRenderer
 from blog.serializers import PostSerializer
@@ -56,13 +58,12 @@ class HomeList(LoginRequiredMixin, ListView):
 
 
 class PostViewSet(ModelViewSet):
-    ordering = ["-create_time"]
+    queryset = Post.objects.all()
+    filterset_class = PostFilter
     serializer_class = PostSerializer
     renderer_classes = [ModelTemplateHTMLRenderer, JSONRenderer]
     permission_classes = [IsAuthenticatedOrReadOnly]
-
-    def get_queryset(self):
-        return all_permissioned_posts(self.request.user)
+    ordering = ["-create_time"]
 
     def get_template_names(self) -> List[str]:
         if self.detail:
