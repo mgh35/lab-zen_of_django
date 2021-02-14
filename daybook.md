@@ -68,3 +68,7 @@ Another case where straying even slightly off the green path leaves you having t
 I feel like that all makes sense. But for such a simple thing it requires a fairly deep understanding of the Django abstraction. Any talk of "working out the box" is wildly overstated.
 
 Of course that was too easy. DRF changes the abstraction, and [ordering no longer works in DRF ModelView](https://stackoverflow.com/questions/24987446/django-rest-framework-queryset-doesnt-order). Again, digging into the code it's clear (`get_ordering` is overridden and doesn't implement ordering). But, come on ... So now we have to use the `OrderingFilter`.
+
+The home pages are an interesting case. They really don't follow the Model* hierarchies. Which makes sense given what they are. It seems like a sensible approach is to make those pure TemplateViews and explicitly build the queries needed in `get_context_data`. That none of the API functionality applies makes sense because the home page isn't intended to be dynamically editable.
+
+This is back to the point of Django being very useful for what it's good for. But, once you leave that sweet spot, the abstractions very quickly just get in the way. Falling back to the lightest View and building it manually seems to be the right thing to do there. (And things like the templating can still be kind of handy.)
