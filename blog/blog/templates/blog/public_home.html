@@ -2,5 +2,5 @@
 
 {% block content %}
   <h1>Latest Posts</h1>
-  {% include "includes/posts_list.html" %}
+  {% include "includes/posts_list.html" with data=post_list %}
 {% endblock content %}

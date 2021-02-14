@@ -1,13 +1,12 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import QuerySet
 from django.http import HttpResponseRedirect
 from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.urls import reverse_lazy
-from django.views.generic import ListView
+from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -20,7 +19,6 @@ from blog.filters import PostFilter
 from blog.forms import AnyPasswordUserCreationForm
 from blog.forms import PostForm
 from blog.models import Post
-from blog.queries import all_permissioned_posts
 from blog.renderers import ModelTemplateHTMLRenderer
 from blog.serializers import PostSerializer
 
@@ -39,22 +37,17 @@ class SignupView(FormView):
         return super().form_valid(form)
 
 
-class PublicHomeList(ListView):
-    ordering = ["-create_time"]
+class PublicHomeList(TemplateView):
     template_name = "blog/public_home.html"
-    context_object_name = "data"
 
-    def get_queryset(self) -> QuerySet:
-        return all_permissioned_posts(self.request.user)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["post_list"] = PostFilter().qs.order_by("-create_time")[:10]
+        return context
 
 
-class HomeList(LoginRequiredMixin, ListView):
-    ordering = ["-create_time"]
+class HomeList(LoginRequiredMixin, TemplateView):
     template_name = "blog/home.html"
-    context_object_name = "data"
-
-    def get_queryset(self) -> QuerySet:
-        return all_permissioned_posts(self.request.user)
 
 
 class PostViewSet(ModelViewSet):
