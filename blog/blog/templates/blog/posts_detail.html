@@ -4,5 +4,18 @@
     <div class="post">
       <div class="post-title">{{ data.title }}</div>
       <div class="post-text">{{ data.text }}</div>
+      <div class="post-comments">
+        <div class="post-comments-title">Comment</div>
+        <div class="post-comment">
+          {% include "includes/comment_form.html" with form=comment_form post_id=data.id %}
+        </div>
+        {% for comment in data.comments %}
+          <div class="post-comment">
+            <div class="post-comment-text">{{ comment.text }}</div>
+            <div class="post-comment-tagline">
+              {{ comment.author.username|default:"Anonymous" }} - {{ comment.create_time }}</div>
+          </div>
+        {% endfor %}
+      </div>
     </div>
 {% endblock content %}

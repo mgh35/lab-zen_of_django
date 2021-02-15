@@ -18,5 +18,6 @@ urlpatterns = [
 
 router = DefaultRouter()
 router.register("posts", views.PostViewSet, basename="post")
+router.register("comments", views.CommentViewSet, basename="comment")
 
 urlpatterns.append(path("", include(router.urls)))

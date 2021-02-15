@@ -1,0 +1,22 @@
+<form action="{% url 'comment-list' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <input type="hidden" id="post_id" name="post" value="{{ post_id }}">
+        <textarea
+            class="form-control{% if form.text.errors %} is-invalid{% endif %}"
+            id="id_text"
+            name="text"
+            placeholder="Reply"
+        >{% if form %}{{ form.text.value }}{% endif %}</textarea>
+        {% if form and form.text.errors %}
+            <div class="invalid-feedback">
+                <ol>
+                {% for error in form.text.errors %}
+                    <li><strong>{{ error|escape }}</strong></li>
+                {% endfor %}
+                </ol>
+            </div>
+        {% endif %}
+    </div>
+    <input class="btn btn-primary" type="submit" value="Reply">
+</form>

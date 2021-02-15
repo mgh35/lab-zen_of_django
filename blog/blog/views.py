@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models.query import Prefetch
 from django.http import HttpResponseRedirect
 from django.http.response import HttpResponse
 from django.shortcuts import render
@@ -9,17 +10,21 @@ from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from rest_framework.decorators import action
+from rest_framework.mixins import CreateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.renderers import JSONRenderer
+from rest_framework.viewsets import GenericViewSet
 from rest_framework.viewsets import ModelViewSet
 from typing import List
 from blog.filters import PostFilter
 
 from blog.forms import AnyPasswordUserCreationForm
 from blog.forms import PostForm
+from blog.models import Comment
 from blog.models import Post
 from blog.renderers import ModelTemplateHTMLRenderer
+from blog.serializers import CommentSerializer
 from blog.serializers import PostSerializer
 
 
@@ -51,7 +56,9 @@ class HomeList(LoginRequiredMixin, TemplateView):
 
 
 class PostViewSet(ModelViewSet):
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().prefetch_related(
+        Prefetch("comments", queryset=Comment.objects.order_by("-create_time"))
+    )
     filterset_class = PostFilter
     serializer_class = PostSerializer
     renderer_classes = [ModelTemplateHTMLRenderer, JSONRenderer]
@@ -80,3 +87,17 @@ class PostViewSet(ModelViewSet):
             form = PostForm()
 
         return render(request, "blog/posts_compose.html", {"form": form})
+
+
+class CommentViewSet(CreateModelMixin, GenericViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        if "text/html" in self.get_content_negotiator().get_accept_list(request):
+            return HttpResponseRedirect(
+                reverse("post-detail", kwargs={"pk": response.data["post"]})
+            )
+        return response
