@@ -87,3 +87,5 @@ get_resolver().reverse_dict.keys()
 Looks like because they are on the same endpoint they create the same route and just implement the different HTTP methods.
 
 Another config pitfall. My model happily included `permission_class = [...]`. Of course, typo (should be `permission_classes`) so it just silently did nothing. Terrifying if security relies on not making typos (which aren't caught by any tooling).
+
+Comments highlight another pitfall in the template approach. We now have to serialize the comments with the posts. We could build out logic to control that, of course. And similarly to control the ordering or filtering. But we quickly just get a mess of an API. With even the simplest addition, it seems that this template approach is already proving unsatisfactory.
